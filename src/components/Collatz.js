@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 
 export default class Collatz extends Component {
 
-    mostrarLista = () => {
-        // this.state.lista.splice(0, this.state.lista.length);
-        // this.setState({
-        //     lista: this.state.lista
-        // })
+    state = {
+        lista: []
+    }
 
+    mostrarLista = () => {
         var resultado = parseInt(this.props.numero);
         var aux = []
 
@@ -25,22 +24,26 @@ export default class Collatz extends Component {
                 aux.push(resultado);
             }
         }
-
-        return
+        
+        this.setState({
+            lista: aux
+        })
     }
 
     componentDidMount = () =>{
         this.mostrarLista();
     }
 
-
     render() {
         return (
             <div className='container my-5'>
                 <h1>Conjetura de Collatz</h1>
                 <ul>
-                    {
-
+                    {   
+                        this.state.lista.length > 0 &&
+                        this.state.lista.map((numero, index) => {
+                            return (<li key={index}>{numero}</li>)
+                        })
                     }
                 </ul>
             </div>
